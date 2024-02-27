@@ -11,6 +11,11 @@ const MATIC: AddEthereumChainParameter["nativeCurrency"] = {
   symbol: "MATIC",
   decimals: 18,
 };
+const SEPOLIA: AddEthereumChainParameter["nativeCurrency"] = {
+  name: "SEPOLIA",
+  symbol: "SEPOLIA",
+  decimals: 18,
+};
 
 const CELO: AddEthereumChainParameter["nativeCurrency"] = {
   name: "Celo",
@@ -113,6 +118,13 @@ export const CHAINS: {
     nativeCurrency: MATIC,
     blockExplorerUrls: ["https://mumbai.polygonscan.com"],
   },
+  //Sepolia
+  11155111: {
+    urls: ['https://eth-sepolia.g.alchemy.com/v2/demo'].filter((url) => url !== ""),
+    name: "Sepolia",
+    nativeCurrency: SEPOLIA,
+    blockExplorerUrls: ["https://eth-sepolia.g.alchemy.com/v2/demo"],
+  },
   // Celo
   42220: {
     urls: ["https://forno.celo.org"],
@@ -126,6 +138,7 @@ export const CHAINS: {
     nativeCurrency: CELO,
     blockExplorerUrls: ["https://alfajores-blockscout.celo-testnet.org"],
   },
+  
 };
 
 export const URLS: { [chainId: number]: string[] } = Object.keys(CHAINS).reduce<{

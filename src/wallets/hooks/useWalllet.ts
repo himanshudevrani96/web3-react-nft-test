@@ -28,10 +28,10 @@ export const useWallet = () => {
             params: [
               {
                 chainId: chainIdHex,
-                chainName: chain_id == 5 ? 'Goerli' : 'Etheruem Mainnet',
+                chainName: chain_id == 11155111 ? 'Sepolia' : 'Etheruem Mainnet',
                 nativeCurrency: {
-                  name: 'ETH',
-                  symbol: chain_id == 5 ? 'Gth' : 'ETH',
+                  name: 'SEPOLIA',
+                  symbol: chain_id == 11155111 ? 'Sepolia' : 'ETH',
                   decimals: 18,
                 },
                 rpcUrls: [rpc_url],

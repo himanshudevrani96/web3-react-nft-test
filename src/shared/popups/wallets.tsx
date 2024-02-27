@@ -29,7 +29,7 @@ function Wallets({ closeModal }: any) {
         <>
           <WalletWrapper>
             <MetaMaskContainer
-              onClick={() => activate(connectorsObject.metamask.connector, 5)}
+              onClick={() => activate(connectorsObject.metamask.connector, 11155111)}
             >
               <Img
                 loading="lazy"
@@ -39,7 +39,7 @@ function Wallets({ closeModal }: any) {
             </MetaMaskContainer>
             <WalletConnectContainer
               onClick={() => {
-                activate(connectorsObject.walletConnect.connector, 5);
+                activate(connectorsObject.walletConnect.connector, 11155111);
                 closeModal();
               }}
             >

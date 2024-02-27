@@ -9,7 +9,7 @@ const useCheckNetwork = () => {
   const chainId = useChainId();
   const active = useIsActive();
 
-  if (chainId !== 80001 && active) {
+  if (chainId !== 11155111 && active) {
     deactivate(connectedWallet);
   }
 };

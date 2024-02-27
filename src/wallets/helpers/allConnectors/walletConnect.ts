@@ -2,12 +2,12 @@ import {initializeConnector} from '@web3-react/core';
 import {WalletConnect as WalletConnectV2} from '@web3-react/walletconnect-v2';
 import { block_explorer, chain_id, rpc_url } from '../../config';
 const rpcArray = {
-  5: {
+  11155111: {
     urls: [
       rpc_url,
     ],
-    name: chain_id == 5 ? 'Goerli' : 'Ethereum Mainnet',
-    nativeCurrency: chain_id == 5 ? 'Gth' : 'Eth',
+    name: chain_id == 11155111 ? 'Sepolia' : 'Ethereum Mainnet',
+    nativeCurrency: chain_id == 11155111 ? 'Sepolia' : 'Eth',
     blockExplorerUrls: [block_explorer],
   },
 };
