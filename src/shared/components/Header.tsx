@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({ onSwitchChange }) => {
   const [state, setState] = React.useState({
     left: false,
   });
-  const { account, deactivate } = useConnectWallet();
+  const { account, deactivate, balance } = useConnectWallet();
   const address = localStorage.getItem("wallet");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [shortAddress, setAddress] = useState("");
@@ -188,7 +188,7 @@ const Header: React.FC<HeaderProps> = ({ onSwitchChange }) => {
                 width="30%"
                 height="50%"
               >
-                <Wallets closeModal={closeModal}/>
+                <Wallets closeModal={closeModal} />
               </Modal>
             </Grid>
           </>
@@ -205,7 +205,7 @@ const Header: React.FC<HeaderProps> = ({ onSwitchChange }) => {
               width="30%"
               height="50%"
             >
-              <Wallets closeModal={closeModal}/>
+              <Wallets closeModal={closeModal} />
             </Modal>
           </Grid>
         )}
@@ -246,7 +246,7 @@ const Header: React.FC<HeaderProps> = ({ onSwitchChange }) => {
                 width="30%"
                 height="50%"
               >
-                <Wallets closeModal={closeModal}/>
+                <Wallets closeModal={closeModal} />
               </Modal>
             </Grid>
           </>
@@ -263,43 +263,54 @@ const Header: React.FC<HeaderProps> = ({ onSwitchChange }) => {
               width="30%"
               height="50%"
             >
-              <Wallets closeModal={closeModal}/>
+              <Wallets closeModal={closeModal} />
             </Modal>
           </Grid>
         )}
-       
 
         <Grid item xs={8} sm={12} md={2} lg={1} className="mb-10">
           {account && address ? (
-            <div
-              style={{ position: "relative", display: "inline-block" }}
-              onMouseEnter={() => setShowTooltip(true)}
-              onMouseLeave={() => setShowTooltip(false)}
-            >
-              <img
-                src={logout}
-                className="cursor-pointer"
-                alt="disconnect"
-                style={{ height: "30px", color: "white" }}
-                onClick={() => deactivate(connectorsObject.metamask.connector)}
-              />
-              {showTooltip && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "100%",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    backgroundColor: "rgba(0, 0, 0, 0.8)",
-                    color: "white",
-                    padding: "0px 0px",
-                    borderRadius: "4px",
-                    fontSize: "14px",
-                  }}
-                >
-                  Disconnect
-                </div>
-              )}
+            <div style={{display: 'flex', gap: '10px', alignItems:'center', justifyContent: 'center'}}>
+              <Button
+                id="basic-button"
+                variant="outlined"
+                className="gradient-text"
+              >
+                Balance: {balance}
+              </Button>
+
+              <div
+                style={{ position: "relative", display: "inline-block" }}
+                onMouseEnter={() => setShowTooltip(true)}
+                onMouseLeave={() => setShowTooltip(false)}
+              >
+                <img
+                  src={logout}
+                  className="cursor-pointer"
+                  alt="disconnect"
+                  style={{ height: "30px", color: "white" }}
+                  onClick={() =>
+                    deactivate(connectorsObject.metamask.connector)
+                  }
+                />
+                {showTooltip && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "100%",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      backgroundColor: "rgba(0, 0, 0, 0.8)",
+                      color: "white",
+                      padding: "0px 0px",
+                      borderRadius: "4px",
+                      fontSize: "14px",
+                    }}
+                  >
+                    Disconnect
+                  </div>
+                )}
+              </div>
             </div>
           ) : (
             ""

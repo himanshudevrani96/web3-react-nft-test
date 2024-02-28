@@ -1,7 +1,7 @@
-import {useWeb3React} from '@web3-react/core';
-import {useEffect} from 'react';
-import {checkWallet, selectWalletHooks} from '../helpers/WalletHelper';
-
+import { useWeb3React } from "@web3-react/core";
+import { useEffect, useState } from "react";
+import { checkWallet, selectWalletHooks } from "../helpers/WalletHelper";
+import Web3 from "web3";
 export const useConnectWallet = () => {
   //Define Variables
   let chainId: number | undefined;
@@ -10,15 +10,15 @@ export const useConnectWallet = () => {
   let connectedWallet: any;
   let activating: boolean;
   let library: any;
-
-  const {hooks: PriorityHook} = useWeb3React();
+  const [balance, setBalance] = useState<string>("");
+  const { hooks: PriorityHook } = useWeb3React();
   const hook: any = selectWalletHooks();
 
-  const {useChainId, useIsActive, useAccounts, useIsActivating, useProvider} =
+  const { useChainId, useIsActive, useAccounts, useIsActivating, useProvider } =
     hook;
 
-  const {usePriorityConnector} = PriorityHook;
-  const {account: web3Account} = useWeb3React();
+  const { usePriorityConnector } = PriorityHook;
+  const { account: web3Account } = useWeb3React();
 
   // Set Hooks into Variables
   chainId = useChainId();
@@ -34,13 +34,28 @@ export const useConnectWallet = () => {
       .activate(networkId)
       .then(() => {})
       .catch((error: any) => {
-        console.error('Activate Func error', error.message);
+        console.error("Activate Func error", error.message);
       });
+  };
+
+  const fetchBalance = async () => {
+    try {
+      if (web3Account) {
+        const web3 = new Web3();
+        const resp = await library?.getBalance(web3Account);
+        setBalance(
+          parseFloat(web3.utils.fromWei(resp?.toString(), "ether"))?.toFixed(2)
+        );
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   useEffect(() => {
     if (web3Account) {
-      localStorage.setItem('address', web3Account);
+      localStorage.setItem("address", web3Account);
+      fetchBalance();
     }
   }, [web3Account]);
 
@@ -65,5 +80,6 @@ export const useConnectWallet = () => {
     connectedWallet,
     activating,
     library,
+    balance,
   };
 };
